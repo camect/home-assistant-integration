@@ -9,7 +9,7 @@ Please follow the following instructions:
 <pre>
 camect:
   host: YOUR_CAMECT_HOME_LOCAL_IP
-  port: 8443
+  port: 443
   username: admin
   password: admin_PASSWORD
   camera_ids: YOUR_CAMERA_IDS_SEPARATED_BY_COMMA
@@ -40,5 +40,5 @@ Sample event:
 <pre>
 type=alert
 desc=Camera Driveway just saw a car.
-url=https://3scam.com/home/52a3f373ee9fdcc063d39f20e44d1dbdbe82941c/camera?id=4db8194d961644688dea&ts=1556228517560
+url=https://home.camect.com/home/xxxxxxxx/camera?id=yyyyyyy&ts=1556228517560
 </pre>
