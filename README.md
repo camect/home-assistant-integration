@@ -3,18 +3,18 @@
 
 ## Configure
 Please follow the following instructions:
-- Copy camect-card.js to $config_dir/www.
-- Copy folder camect to $config_dir/custom_components.
-- Add following to $config_dir/configuration.yaml
+- Copy file "camect-card.js" to $ha_config_dir/www.
+- Copy folder "camect" to $ha_config_dir/custom_components.
+- Add following to $ha_config_dir/configuration.yaml
 <pre>
 camect:
-  host: YOUR_CAMECT_HOME_LOCAL_IP
-  port: 443
-  username: admin
-  password: admin_PASSWORD
-  camera_ids: YOUR_CAMERA_IDS_SEPARATED_BY_COMMA
+  - host: YOUR_CAMECT_HOME_LOCAL_IP
+    port: 443
+    username: admin
+    password: admin_PASSWORD
+    camera_ids: YOUR_CAMERA_IDS_SEPARATED_BY_COMMA
 </pre>
-- If you are using lovelace, put following into $config_dir/ui-lovelace.yaml
+- If you are using lovelace, put following into $ha_config_dir/ui-lovelace.yaml
 <pre>
 resources:
   - url: /local/camect-card.js
@@ -26,7 +26,7 @@ views:
       - type: "custom:camect-card"
         entity: camera.camect_YOUR_CAMERA_ID
 </pre>
-  If you don't have ui-lovelace.yaml yet, add the following into $config_dir/configuration.yaml
+  If you don't have ui-lovelace.yaml yet, add the following into $ha_config_dir/configuration.yaml
 <pre>
 lovelace:
    mode: yaml
