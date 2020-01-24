@@ -8,12 +8,14 @@ camect:
       username: admin
       password: XXXXX
       camera_ids: aaa,bbbb
+      id: (optional)  // provide this is you have multiple devices so you could
+                      // tell which camera is from which home.
 """
 import voluptuous as vol
 
 from homeassistant.components import camera
 from homeassistant.const import (
-    CONF_HOST, CONF_PASSWORD, CONF_PORT, CONF_USERNAME)
+    CONF_HOST, CONF_ID, CONF_PASSWORD, CONF_PORT, CONF_USERNAME)
 from homeassistant.helpers import config_validation as cv, discovery
 
 ATTR_MODE = 'mode'
@@ -30,6 +32,7 @@ CONFIG_SCHEMA = vol.Schema({
         vol.Optional(CONF_PORT, default=DEFAULT_PORT): cv.port,
         vol.Optional(CONF_USERNAME, default=DEFAULT_USERNAME): cv.string,
         vol.Required(CONF_PASSWORD): cv.string,
+        vol.Optional(CONF_ID): cv.string,
         vol.Optional(CONF_CAMERA_IDS, default=[]): vol.All(
             cv.ensure_list_csv, [cv.string]),
     }], vol.Length(min=1))),
@@ -46,16 +49,16 @@ def setup(hass, config):
 
     # Create camect.Home instances.
     homes = []
-    cam_id_lists = []
+    data = []
     for conf in config[DOMAIN]:
         host = conf.get(CONF_HOST)
         port = conf.get(CONF_PORT)
         home = camect.Home('{}:{}'.format(host, port),
             conf.get(CONF_USERNAME), conf.get(CONF_PASSWORD))
         homes.append(home)
-        cam_id_lists.append(conf.get(CONF_CAMERA_IDS))
+        data.append((conf.get(CONF_CAMERA_IDS), conf.get(CONF_ID)))
     hass.data[DOMAIN] = homes
-    discovery.load_platform(hass, camera.DOMAIN, DOMAIN, cam_id_lists, config)
+    discovery.load_platform(hass, camera.DOMAIN, DOMAIN, data, config)
 
     home.add_event_listener(lambda evt: hass.bus.fire('camect_event', evt))
 

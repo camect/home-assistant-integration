@@ -13,21 +13,23 @@ _LOGGER = logging.getLogger(__name__)
 DOMAIN = 'camect'
 
 
-def setup_platform(hass, config, add_entities, cam_id_lists):
+def setup_platform(hass, config, add_entities, data):
     """Add an entity for every camera from Camect Home."""
     component = hass.data[camera.DOMAIN]
     hass.http.register_view(CamectWebsocketView(component))
 
     cams = []
     homes = hass.data[DOMAIN]
-    for i, cam_ids in enumerate(cam_id_lists):
+    for i, home_data in enumerate(data):
         home = homes[i]
         camect_site = home.get_cloud_url('')
         cam_jsons = home.list_cameras()
+        cam_ids = home_data[0]
+        home_id = home_data[1]
         if cam_jsons:
             for cj in cam_jsons:
                 if not cam_ids or cj['id'] in cam_ids:
-                    cams.append(Camera(home, cj, camect_site))
+                    cams.append(Camera(home_id, home, cj, camect_site))
     add_entities(cams, True)
     return True
 
@@ -35,12 +37,16 @@ def setup_platform(hass, config, add_entities, cam_id_lists):
 class Camera(camera.Camera):
     """An implementation of a camera supported by Camect Home."""
 
-    def __init__(self, home, json: Dict[str, str], camect_site: str):
+    def __init__(self, home_id: str, home, json: Dict[str, str], camect_site: str):
         """Initialize a camera supported by Camect Home."""
         super(Camera, self).__init__()
+        self._home_id = home_id
         self._home = home
         self._device_id = json['id']
-        self._id = '{}_{}'.format(DOMAIN, self._device_id)
+        if self._home_id:
+            self._id = '{}_{}{}'.format(DOMAIN, self._home_id, self._device_id)
+        else:
+            self._id = '{}_{}'.format(DOMAIN, self._device_id)
         self.entity_id = '{}.{}'.format(camera.DOMAIN, self._id)
         self._name = json['name']
         self._make = json['make'] or ''
