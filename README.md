@@ -13,8 +13,8 @@ camect:
     username: admin
     password: admin_PASSWORD
     camera_ids: YOUR_CAMERA_IDS_SEPARATED_BY_COMMA
-    id: (optional)    // provide this is you have multiple device so you could
-                      // tell which camera is from which home.
+    id: (optional)    // provide this if you have multiple Camect devices so you could
+                      // tell which camera is from which Camect device.
 </pre>
 - If you are using lovelace, put following into $ha_config_dir/ui-lovelace.yaml
 <pre>
@@ -44,3 +44,9 @@ type=alert
 desc=Camera Driveway just saw a car.
 url=https://home.camect.com/home/xxxxxxxx/camera?id=yyyyyyy&ts=1556228517560
 </pre>
+
+## Home Assistant Community Store
+One of our users created these two repos [here](https://github.com/pfunkmallone/HACS-camect-integration)
+and [here](https://github.com/pfunkmallone/HACS-camect-custom_card) to use Camect from HACS.
+
+We haven't got time to test them though.
