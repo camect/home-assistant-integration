@@ -2,7 +2,7 @@
   "domain": "camect",
   "name": "Camect",
   "requirements": [
-    "camect-py==0.1.8"
+    "camect-py==0.1.10"
   ],
   "dependencies": [],
   "codeowners": [
