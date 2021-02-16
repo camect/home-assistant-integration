@@ -55,12 +55,12 @@ def setup(hass, config):
         port = conf.get(CONF_PORT)
         home = camect.Home('{}:{}'.format(host, port),
             conf.get(CONF_USERNAME), conf.get(CONF_PASSWORD))
+        home.add_event_listener(lambda evt: hass.bus.fire('camect_event', evt))
         homes.append(home)
         data.append((conf.get(CONF_CAMERA_IDS), conf.get(CONF_ID)))
     hass.data[DOMAIN] = homes
     discovery.load_platform(hass, camera.DOMAIN, DOMAIN, data, config)
 
-    home.add_event_listener(lambda evt: hass.bus.fire('camect_event', evt))
 
     # Register service.
     def handle_change_op_mode_service(call):
