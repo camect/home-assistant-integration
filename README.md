@@ -1,6 +1,12 @@
 # Integrate Camect with home-assistant
 ======================================
 
+The Camect [Smart Camera Hub](https://camect.com/) is an advanced network video recorder that uses
+AI (Artificial Intelligence), private local video storage, and secure remote access to the networked
+security cameras in your home. It plugs into your home network and provides 24×7 recording, viewing
+from your home network, and AI-powered smart alert detection and review via the app.
+You can learn more about camect at [camect.com](https://camect.com/).
+
 ## Configure
 Please follow the following instructions:
 - Copy file "camect-card.js" to $ha_config_dir/www.
