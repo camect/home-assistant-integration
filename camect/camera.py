@@ -96,7 +96,7 @@ class Camera(camera.Camera):
         return self._home.snapshot_camera(self._device_id)
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the state attributes."""
         return {
             'device_id': self._device_id,
