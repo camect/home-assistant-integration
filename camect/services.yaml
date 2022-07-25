@@ -4,3 +4,15 @@ change_op_mode:
     mode:
       description: The new operation mode.
       example: home/away
+disable_camera_alert:
+  description: Disable camera(s).
+  fields:
+    camera:
+      description: ID of camera.
+      example: 0586c3143fd3db8b0149
+enable_camera_alert:
+  description: Enable camera(s).
+  fields:
+    camera:
+      description: ID of camera.
+      example: 0586c3143fd3db8b0149
