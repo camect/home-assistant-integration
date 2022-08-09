@@ -91,9 +91,9 @@ class Camera(camera.Camera):
         """Return a link to the camera feed as entity picture."""
         return None
 
-    def camera_image(self):
+    def camera_image(self, width = None, height = None):
         """Return a still image response from the camera."""
-        return self._home.snapshot_camera(self._device_id)
+        return self._home.snapshot_camera(self._device_id, width, height)
 
     @property
     def extra_state_attributes(self):
