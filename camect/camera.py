@@ -93,12 +93,12 @@ class Camera(camera.Camera):
 
     def camera_image(self, width = None, height = None) -> bytes:
         """Return a still image response from the camera."""
-        # The Camect library doesn't handle width or height being None so we force
-        # some arbitrary integer values if those params are set to that.
+        # The Camect library doesn't handle width or height being None so we override
+        # those parameters with the image dimensions previously reported by Camect
         if width is None:
-            width = 480
+            width = self._width
         if height is None:
-            height = 270
+            height = self._height
         return self._home.snapshot_camera(self._device_id, width, height)
 
     @property
