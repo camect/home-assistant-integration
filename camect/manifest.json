@@ -3,7 +3,8 @@
   "name": "Camect",
   "version": "0.1.10",
   "requirements": [
-    "camect-py==0.1.10"
+    "camect-py==0.1.10",
+    "websockets<=13"
   ],
   "dependencies": [],
   "codeowners": [
